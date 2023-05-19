@@ -46,11 +46,11 @@ const DolarValue = (props) => {
       </View>
       <View style={styles.column}>
         <View style={styles.subColumn}>
-          <Text style={styles.label}>Valor venta:</Text>
+          <Text style={styles.label}>Valor Compra:</Text>
           <Text style={styles.value}>{props.valueSell}</Text>
         </View>
         <View style={styles.subColumn}>
-          <Text style={styles.label}>Valor compra:</Text>
+          <Text style={styles.label}>Valor Venta:</Text>
           <Text style={styles.value}>{props.valueBuy}</Text>
         </View>
         <View style={styles.iconContainer}>

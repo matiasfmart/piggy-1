@@ -2,16 +2,20 @@ import React from "react";
 import { View, Text } from "react-native";
 import DolarValue from "./Dolar";
 
-const DolarList = (props) => {
+const DolarList = ({ items, selectedSource }) => {
+  // Filtrar los valores según la fuente seleccionada
+  const filteredItems =
+    selectedSource === "All" ? items : items.filter(item => item.source === selectedSource);
+
   // Ordenar los valores por fecha en orden ascendente
-  const sortedDolarValues = props.items.sort((a, b) =>
+  const sortedDolarValues = filteredItems.sort((a, b) =>
     a.date.localeCompare(b.date)
   );
 
   // Invertir el array para mostrar las fechas en orden descendente
   const reversedDolarValues = sortedDolarValues.reverse();
 
-  let currentDate = null;
+  let currentDate = new Date();
 
   return (
     <View style={styles.container}>

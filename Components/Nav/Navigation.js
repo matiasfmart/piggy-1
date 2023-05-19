@@ -3,8 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from '../../views/HomeView.js'
 import Users from '../../views/UsersView.js';
-import DolarVista from '../../views/DolarVista.js';
+import Dolar from '../../views/DolarVista.js';
 import Login from '../../views/LoginView.js'
+import Grafico from '../Graficos/Grafico.js'
 
 const CustomDrawerNavigator = () => {
     const Drawer = createDrawerNavigator();
@@ -14,8 +15,9 @@ const CustomDrawerNavigator = () => {
         <Drawer.Navigator initialRouteName="Home" screenOptions={{headerShown:true}}>
           <Drawer.Screen name="Home" component={Home}/>
           <Drawer.Screen name="Usuarios" component={Users} />
-          <Drawer.Screen name="Valor Dolar" component={DolarVista}/> 
+          <Drawer.Screen name="Valor Dolar" component={Dolar}/> 
           <Drawer.Screen name="Login" component={Login} />
+          <Drawer.Screen name="Grafico" component={Grafico} />
         </Drawer.Navigator>
       </NavigationContainer>
     );
