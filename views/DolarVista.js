@@ -10,6 +10,7 @@ export default function DolarValues() {
   const [numDays, setNumDays] = useState("1");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedSource, setSelectedSource] = useState("All");
+  const [selectedDataValue, setSelectedDataValue] = useState("value_sell");
 
   const getDolarValues = async () => {
     setIsLoading(true);
@@ -43,6 +44,11 @@ export default function DolarValues() {
     { label: "Valor dolar blue", value: "Blue" },
   ];
 
+  const options2 = [
+    { label: "Valor compra", value: "value_sell" },
+    { label: "Valor venta", value: "value_buy" },
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={require("../src/backgrounds/dollars_dark.jpg")} style={styles.backgroundImage}>
@@ -69,7 +75,14 @@ export default function DolarValues() {
                     options={options}
                   />
                 </View>
-                <MyChart data={dolarValues} selectedSource={selectedSource} />
+                <View style={styles.pickerContainer}>
+                  <CustomPicker
+                    selectedValue={selectedDataValue}
+                    onValueChange={(itemValue) => setSelectedDataValue(itemValue)}
+                    options={options2}
+                  />
+                </View>
+                <MyChart data={dolarValues} selectedSource={selectedSource} selectedDataValue={selectedDataValue} />
                 <DolarList items={dolarValues} selectedSource={selectedSource} />
               </>
             )}
@@ -96,6 +109,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   centerContainer: {
+    flex: 1,
     alignItems: "center",
   },
   inputContainer: {
@@ -117,6 +131,7 @@ const styles = StyleSheet.create({
   pickerContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginBottom: 10,
   },
 });
