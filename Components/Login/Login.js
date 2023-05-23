@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-
+import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
+  const navigation = useNavigation(); // Obtener la instancia de navegación
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,9 +14,11 @@ const Login = () => {
     // Por simplicidad, este ejemplo solo muestra los valores ingresados en el formulario
     console.log("Email:", email);
     console.log("Password:", password);
+
+    // Redirigir a la HomeView
+    navigation.navigate("Plan De Ahorro");
   };
 
-  
   const handleRegister = () => {
     // Aquí puedes realizar la lógica de autenticación con el servidor
     // Por simplicidad, este ejemplo solo muestra los valores ingresados en el formulario
@@ -39,12 +42,14 @@ const Login = () => {
         onChangeText={setPassword}
       />
       <Button title="Iniciar sesión" onPress={handleLogin} />
+      <Button title="Redireccion" onPress={() => navigation.navigate("Plan De Ahorro")}></Button>
 
       <Text style={styles.register}>¿No tenés una cuenta de Piggy?</Text>
       <Button title="Registrate gratis" onPress={handleRegister} />
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

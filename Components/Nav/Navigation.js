@@ -8,7 +8,9 @@ import Users from '../../views/UsersView.js';
 import Dolar from '../../views/DolarVista.js';
 import Login from '../../views/LoginView.js';
 import Grafico from '../Graficos/Grafico.js';
+import DolarEuro from '../Dolar/DolarEuroList.js';
 import logoImage from '../../assets/logo.png';
+
 
 const CustomDrawerContent = (props) => {
   return (
@@ -49,8 +51,9 @@ const CustomDrawerNavigator = () => {
         <Drawer.Screen name="Plan De Ahorro" component={Home} />
         <Drawer.Screen name="Usuarios" component={Users} />
         <Drawer.Screen name="Valor Dolar" component={Dolar} />
-        <Drawer.Screen name="Login" component={Login} //options={{ drawerLockMode: 'locked-closed', headerShown: false}}
+        <Drawer.Screen name="Login" component={Login} options={{ drawerLockMode: 'locked-closed', headerShown: false}}
         />
+        <Drawer.Screen name="DolarEuroHoy" component={DolarEuro} />
         <Drawer.Screen name="Grafico" component={Grafico} />
       </Drawer.Navigator>
     </NavigationContainer>
