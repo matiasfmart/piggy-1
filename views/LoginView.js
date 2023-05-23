@@ -4,8 +4,9 @@ import Login from '../Components/Login/Login.js'
 
 export default function LoginView() {
   return (
-    <View>
-      <Login/>
-    </View>
+    
+    <>
+    <Login/>
+    </>
   );
 }

@@ -4,7 +4,7 @@ import DolarEuro from "./DolarEuro";
 
 const API_URL = "https://api.bluelytics.com.ar/v2/latest";
 
-const MonedasView = () => {
+const DolarEuroList = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -65,11 +65,11 @@ const MonedasView = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 10,
   },
   title: {
+    textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 20,
@@ -82,9 +82,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
-  column: {
-    paddingHorizontal: 10,
-  },
 });
 
-export default MonedasView;
+export default DolarEuroList;

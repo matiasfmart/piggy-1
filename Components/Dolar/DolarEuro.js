@@ -1,26 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import blueIcon from "../../src/icons/blue.png";
-import greenIcon from "../../src/icons/green.png";
 
 const DolarEuro = (props) => {
-  const getIconSource = (source) => {
-    switch (source) {
-      case "oficial":
-        return greenIcon;
-      case "blue":
-        return blueIcon;
-      case "oficial_euro":
-        return blueIcon;
-      case "blue_euro":
-        return blueIcon;
-      default:
-        return null;
-    }
-  };
-
-  const iconSource = getIconSource(props.source);
-
   const getSourceStyles = (source) => {
     switch (source) {
       case "oficial":
@@ -47,7 +28,6 @@ const DolarEuro = (props) => {
   };
 
   const sourceStyles = getSourceStyles(props.source);
-
   const rawDate = props.date;
   const splitDate = rawDate.split("T")[0];
   const splitParts = splitDate.split("-");
@@ -64,9 +44,6 @@ const DolarEuro = (props) => {
         <Text style={styles.value}>{formattedDate}</Text>
         <Text style={styles.label}>Tipo:</Text>
         <Text style={styles.value}>{props.source}</Text>
-        <View style={styles.iconContainer}>
-          {iconSource && <Image source={iconSource} style={styles.icon} />}
-        </View>
       </View>
 
       <View style={styles.column}>
@@ -82,48 +59,44 @@ const DolarEuro = (props) => {
           <Text style={styles.label}>Valor de Venta:</Text>
           <Text style={[styles.value, styles.largeValue]}>{valorVenta}</Text>
         </View>
-
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    width: "100%",
-  },
-  column: {
-    flex: 1,
-    paddingHorizontal: 10,
-  },
-  subColumn: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 5,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: "bold",
-    marginRight: 5,
-  },
-  value: {
-    fontSize: 14,
-  },
-  largeValue: {
-    fontSize: 18,
-  },
-  iconContainer: {
-    alignItems: "center",
-  },
-  icon: {
-    width: 30,
-    height: 30,
-  },
-});
+    container: {
+        flexDirection: "row",
+        justifyContent: "center",
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: "#ccc",
+        width: "100%", 
+      },
+      column: {
+        flex: 1,
+        paddingHorizontal: 10,
+      },
+      subColumn: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 5,
+      },
+      label: {
+        fontSize: 14,
+        fontWeight: "bold",
+        marginRight: 5,
+      },
+      value: {
+        fontSize: 14,
+      },
+      iconContainer: {
+        alignItems: "center",
+      },
+      icon: {
+        width: 30,
+        height: 30,
+      },
+    });
 
 export default DolarEuro;

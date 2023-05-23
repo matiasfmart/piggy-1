@@ -4,8 +4,8 @@ import Home from '../Components/Home/Home.js'
 
 export default function HomeView() {
   return (
-    <View>
+    <>
       <Home/>
-    </View>
-  );
+    </>
+  );s
 }

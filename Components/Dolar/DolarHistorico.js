@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar, Alert, ImageBackground } from "react-native";
+import { StatusBar, Alert } from "react-native";
 import { StyleSheet, View, ScrollView, Text, TextInput, Button, SafeAreaView } from "react-native";
 import DolarList from '../Dolar/DolarList.js';
 import MyChart from "../Graficos/Grafico";
@@ -50,9 +50,10 @@ export default function DolarValues() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentContainer}>
           <View style={styles.centerContainer}>
+          <Text style={styles.title}>Valor del dolar Histórico</Text>
             <View style={styles.inputContainer}>
               <Text style={styles.whiteLetter}>Ingrese el número de días:</Text>
               <TextInput
@@ -89,7 +90,7 @@ export default function DolarValues() {
         </ScrollView>
         <StatusBar style="auto" />
 
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -142,7 +143,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  title:{
-    fontSize: '150%'
+  title: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
 });

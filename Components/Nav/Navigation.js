@@ -9,6 +9,7 @@ import Dolar from '../../views/DolarVista.js';
 import Login from '../../views/LoginView.js';
 import Grafico from '../Graficos/Grafico.js';
 import DolarEuro from '../Dolar/DolarEuroList.js';
+import DolarHistorico from '../Dolar/DolarHistorico.js';
 import logoImage from '../../assets/logo.png';
 
 
@@ -54,6 +55,7 @@ const CustomDrawerNavigator = () => {
         <Drawer.Screen name="Login" component={Login} options={{ drawerLockMode: 'locked-closed', headerShown: false}}
         />
         <Drawer.Screen name="DolarEuroHoy" component={DolarEuro} />
+        <Drawer.Screen name="DolarHistorico" component={DolarHistorico} />
         <Drawer.Screen name="Grafico" component={Grafico} />
       </Drawer.Navigator>
     </NavigationContainer>
