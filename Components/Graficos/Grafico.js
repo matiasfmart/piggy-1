@@ -9,37 +9,16 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
 
   const filteredData =
     selectedSource === "All"
-      ? data.filter((item) => item.source === "Oficial" || item.source === "Blue")
+      ? data.filter((item) => item.source === "Oficial")
       : data.filter((item) => item.source === selectedSource);
 
-  const recentData = filteredData.slice(0, 20).reverse();
-  const labels = recentData
-    .map((item) => {
-      const date = new Date(item.date);
-      return `${date.getMonth() + 1}/${date.getDate()}`;
-    })
-    .filter((value, index, self) => self.indexOf(value) === index);
+  const recentData = filteredData.slice(0, 10).reverse();
+  const labels = recentData.map((item) => {
+    const date = new Date(item.date);
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  });
 
-  const datasets = [];
-
-  if (selectedSource === "All") {
-    const oficialData = recentData.filter((item) => item.source === "Oficial");
-    datasets.push({
-      data: oficialData.map((item) => item[selectedDataValue]),
-      color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
-    });
-
-    const blueData = recentData.filter((item) => item.source === "Blue");
-    datasets.push({
-      data: blueData.map((item) => item[selectedDataValue]),
-      color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
-    });
-  } else {
-    datasets.push({
-      data: recentData.map((item) => item[selectedDataValue]),
-      color: selectedSource === "Oficial" ? (opacity = 1) => `rgba(0, 255, 0, ${opacity})` : (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
-    });
-  }
+  const values = recentData.map((item) => item[selectedDataValue]);
 
   return (
     <View>
@@ -48,7 +27,11 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
       <LineChart
         data={{
           labels,
-          datasets,
+          datasets: [
+            {
+              data: values,
+            },
+          ],
         }}
         width={Dimensions.get("window").width}
         height={220}
@@ -56,6 +39,8 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
         yAxisInterval={1}
         chartConfig={{
           backgroundColor: "#ffffff",
+          backgroundGradientFrom: "green",
+          backgroundGradientTo: "#006ee6",
           decimalPlaces: 0,
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -74,7 +59,7 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
           borderRadius: 16,
         }}
         formatXLabel={(value, index) => {
-          if (recentData.length > 10 && index % 2 !== 0) {
+          if (recentData.length > 10 && index !== recentData.length - 1) {
             return "";
           }
           return value;

@@ -34,6 +34,7 @@ export default function DolarValues() {
       Alert.alert("Error", "El número de días debe ser mayor a cero.");
       return;
     }
+
     getDolarValues();
   };
 
@@ -48,7 +49,6 @@ export default function DolarValues() {
     { label: "Valor venta", value: "value_buy" },
   ];
 
-  
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentContainer}>
