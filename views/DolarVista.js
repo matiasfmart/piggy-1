@@ -11,7 +11,7 @@ export default function DolarValues() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedSource, setSelectedSource] = useState("All");
   const [selectedDataValue, setSelectedDataValue] = useState("value_sell");
-
+  
   const getDolarValues = async () => {
     setIsLoading(true);
 
@@ -51,9 +51,13 @@ export default function DolarValues() {
   
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={require("../src/backgrounds/dollars_dark.jpg")} style={styles.backgroundImage}>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentContainer}>
           <View style={styles.centerContainer}>
+          <Text style={styles.title}>Valor actual del Dolar</Text>
+          <Text style={styles.title}>Valor histórico del Dolar</Text>
+          <View style={styles.row}>
+            
+          </View>
             <View style={styles.inputContainer}>
               <Text style={styles.whiteLetter}>Ingrese el número de días:</Text>
               <TextInput
@@ -89,7 +93,7 @@ export default function DolarValues() {
           </View>
         </ScrollView>
         <StatusBar style="auto" />
-      </ImageBackground>
+
     </SafeAreaView>
   );
 }
@@ -133,5 +137,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
+  },
+  row:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  column: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  title:{
+    fontSize: '150%'
   },
 });

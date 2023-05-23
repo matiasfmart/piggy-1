@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 
+
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
 
   const handleLogin = () => {
     // Aquí puedes realizar la lógica de autenticación con el servidor
     // Por simplicidad, este ejemplo solo muestra los valores ingresados en el formulario
     console.log("Email:", email);
     console.log("Password:", password);
+  };
+
+  
+  const handleRegister = () => {
+    // Aquí puedes realizar la lógica de autenticación con el servidor
+    // Por simplicidad, este ejemplo solo muestra los valores ingresados en el formulario
+    console.log("Enviar a componente Register.");
   };
 
   return (
@@ -29,6 +39,9 @@ const Login = () => {
         onChangeText={setPassword}
       />
       <Button title="Iniciar sesión" onPress={handleLogin} />
+
+      <Text style={styles.register}>¿No tenés una cuenta de Piggy?</Text>
+      <Button title="Registrate gratis" onPress={handleRegister} />
     </View>
   );
 };
@@ -36,7 +49,6 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     padding: 20,
   },
@@ -53,6 +65,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  register: {
+    paddingTop: 20,
+  }
 });
 
 export default Login;
