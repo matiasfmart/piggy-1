@@ -6,27 +6,27 @@ import MyChart from "../Graficos/Grafico";
 import CustomPicker from "../Picker/CustomPicker";
 
 export default function DolarValues() {
-  const [dolarValues, setDolarValues] = useState([]);
+  const [dolarValues, setData] = useState([]);
   const [numDays, setNumDays] = useState("1");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedSource, setSelectedSource] = useState("All");
   const [selectedDataValue, setSelectedDataValue] = useState("value_sell");
   
-  const getDolarValues = async () => {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `https://api.bluelytics.com.ar/v2/evolution.json?days=${numDays * 2}`
-    );
-    const json = await response.json();
-    setDolarValues(json);
-
-    setIsLoading(false);
-  };
-
   useEffect(() => {
-    getDolarValues();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try{
+    setIsLoading(true);
+    const response = await fetch(`https://api.bluelytics.com.ar/v2/evolution.json?days=${numDays * 2}`);
+    const json = await response.json();
+    setData(json);
+    setIsLoading(false);
+    }catch (error){
+      console.error("Error obteniendo la información del dolar histórico", error);
+    }
+  };
 
   const handleUpdate = () => {
     const parsedNumDays = parseInt(numDays);
@@ -34,8 +34,7 @@ export default function DolarValues() {
       Alert.alert("Error", "El número de días debe ser mayor a cero.");
       return;
     }
-
-    getDolarValues();
+    fetchData();
   };
 
   const options = [

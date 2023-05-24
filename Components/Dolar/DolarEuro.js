@@ -4,19 +4,19 @@ import { View, Text, StyleSheet, Image } from "react-native";
 const DolarEuro = (props) => {
   const getSourceStyles = (source) => {
     switch (source) {
-      case "oficial":
+      case "Oficial":
         return {
           container: { backgroundColor: "green" },
         };
-      case "blue":
+      case "Blue":
         return {
           container: { backgroundColor: "#006ee6" },
         };
-      case "oficial_euro":
+      case "Euro Oficial":
         return {
           container: { backgroundColor: "#7E4F93" },
         };
-      case "blue_euro":
+      case "Euro Blue":
         return {
           container: { backgroundColor: "#006ee6" },
         };
@@ -28,14 +28,9 @@ const DolarEuro = (props) => {
   };
 
   const sourceStyles = getSourceStyles(props.source);
-  const rawDate = props.date;
-  const splitDate = rawDate.split("T")[0];
+  const splitDate = props.date.split("T")[0];
   const splitParts = splitDate.split("-");
   const formattedDate = `${splitParts[2]}/${splitParts[1]}/${splitParts[0]}`;
-
-  const valorPromedio = props.values.value_avg;
-  const valorCompra = props.values.value_sell;
-  const valorVenta = props.values.value_buy;
 
   return (
     <View style={[styles.container, sourceStyles.container]}>
@@ -49,15 +44,15 @@ const DolarEuro = (props) => {
       <View style={styles.column}>
         <View style={styles.subColumn}>
           <Text style={styles.label}>Valor Promedio:</Text>
-          <Text style={[styles.value, styles.largeValue]}>{valorPromedio}</Text>
+          <Text style={[styles.value, styles.largeValue]}>{props.values.value_avg}</Text>
         </View>
         <View style={styles.subColumn}>
           <Text style={styles.label}>Valor de Compra:</Text>
-          <Text style={[styles.value, styles.largeValue]}>{valorCompra}</Text>
+          <Text style={[styles.value, styles.largeValue]}>{props.values.value_sell}</Text>
         </View>
         <View style={styles.subColumn}>
           <Text style={styles.label}>Valor de Venta:</Text>
-          <Text style={[styles.value, styles.largeValue]}>{valorVenta}</Text>
+          <Text style={[styles.value, styles.largeValue]}>{props.values.value_buy}</Text>
         </View>
       </View>
     </View>

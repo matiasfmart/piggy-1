@@ -3,13 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Image, View, StyleSheet } from 'react-native';
-import Home from '../../views/HomeView.js';
-import Users from '../../views/UsersView.js';
-import Dolar from '../../views/DolarVista.js';
-import Login from '../../views/LoginView.js';
-import Grafico from '../Graficos/Grafico.js';
-import DolarEuro from '../Dolar/DolarEuroList.js';
+import Home from '../../views/HomeView.jsx';
+import Users from '../../views/UsersView.jsx';
+import Dolar from '../../views/DolarView.jsx';
+import Login from '../../views/LoginView.jsx';
+import DolarEuroActual from '../Dolar/DolarEuroActual.js';
 import DolarHistorico from '../Dolar/DolarHistorico.js';
+import Gastos from '../../views/GastoView.jsx';
 import logoImage from '../../assets/logo.png';
 
 
@@ -54,9 +54,9 @@ const CustomDrawerNavigator = () => {
         <Drawer.Screen name="Valor Dolar" component={Dolar} />
         <Drawer.Screen name="Login" component={Login} options={{ drawerLockMode: 'locked-closed', headerShown: false}}
         />
-        <Drawer.Screen name="DolarEuroHoy" component={DolarEuro} />
+        <Drawer.Screen name="DolarEuroActual" component={DolarEuroActual} />
         <Drawer.Screen name="DolarHistorico" component={DolarHistorico} />
-        <Drawer.Screen name="Grafico" component={Grafico} />
+        <Drawer.Screen name="Gastos" component={Gastos}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
