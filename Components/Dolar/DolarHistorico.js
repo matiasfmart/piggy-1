@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar, Alert } from "react-native";
-import { StyleSheet, View, ScrollView, Text, TextInput, Button, SafeAreaView } from "react-native";
+import { StyleSheet, View, ScrollView, Text, TextInput, Button, ActivityIndicator,SafeAreaView } from "react-native";
 import DolarList from '../Dolar/DolarList.js';
 import MyChart from "../Graficos/Grafico";
 import CustomPicker from "../Picker/CustomPicker";
@@ -8,7 +8,7 @@ import CustomPicker from "../Picker/CustomPicker";
 export default function DolarValues() {
   const [dolarValues, setData] = useState([]);
   const [numDays, setNumDays] = useState("1");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedSource, setSelectedSource] = useState("All");
   const [selectedDataValue, setSelectedDataValue] = useState("value_sell");
   
@@ -18,13 +18,14 @@ export default function DolarValues() {
 
   const fetchData = async () => {
     try{
-    setIsLoading(true);
-    const response = await fetch(`https://api.bluelytics.com.ar/v2/evolution.json?days=${numDays * 2}`);
-    const json = await response.json();
-    setData(json);
-    setIsLoading(false);
+      setIsLoading(true);
+      const response = await fetch(`https://api.bluelytics.com.ar/v2/evolution.json?days=${numDays * 2}`);
+      const json = await response.json();
+      setData(json);
+      setIsLoading(false);
     }catch (error){
       console.error("Error obteniendo la información del dolar histórico", error);
+      setIsLoading(false);
     }
   };
 
@@ -64,7 +65,7 @@ export default function DolarValues() {
               <Button title="Actualizar" onPress={handleUpdate} />
             </View>
             {isLoading ? (
-              <Text>Cargando...</Text>
+              <ActivityIndicator size="large" color="#000000" />
             ) : (
               <>
                 <View style={styles.pickerContainer}>

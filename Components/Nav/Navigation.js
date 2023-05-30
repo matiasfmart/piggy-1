@@ -3,13 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Image, View, StyleSheet } from 'react-native';
-import Home from '../../views/HomeView.jsx';
-import Users from '../../views/UsersView.jsx';
-import Dolar from '../../views/DolarView.jsx';
-import Login from '../../views/LoginView.jsx';
+import Home from '../Home/HomeSection.jsx';
+import Users from '../Usuarios/UsersSection.jsx';
+import Dolar from '../Dolar/DolarSection.jsx';
+import Login from '../Login/LoginSection.jsx';
+import Gastos from '../Gasto/GastoSection.jsx';
 import DolarEuroActual from '../Dolar/DolarEuroActual.js';
 import DolarHistorico from '../Dolar/DolarHistorico.js';
-import Gastos from '../../views/GastoView.jsx';
 import logoImage from '../../assets/logo.png';
 
 

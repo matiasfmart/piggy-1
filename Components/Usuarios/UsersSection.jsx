@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import UserList from "../Components/Usuarios/UserList.js";
+import UserList from "./UserList.js";
 
 export default function Users() {
   const [users, setUsers] = useState([]);

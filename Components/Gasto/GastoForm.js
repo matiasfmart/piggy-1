@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Picker, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+import CustomPicker from '../Picker/CustomPicker';
 
 const GastoForm = ({ onAgregarGasto }) => {
   const [nuevoGastoNombre, setNuevoGastoNombre] = useState('');
   const [nuevoGastoCosto, setNuevoGastoCosto] = useState('');
   const [nuevoGastoPrioridad, setNuevoGastoPrioridad] = useState('alta');
+
+  const opcionesPrioridad = [
+    { label: 'Prioridad alta', value: 'alta' },
+    { label: 'Prioridad media', value: 'media' },
+    { label: 'Prioridad baja', value: 'baja' },
+  ];
 
   const handleAgregarGasto = () => {
     const nuevoGasto = {
@@ -33,15 +40,11 @@ const GastoForm = ({ onAgregarGasto }) => {
         onChangeText={setNuevoGastoCosto}
         keyboardType="numeric"
       />
-      <Picker
-        style={styles.input}
+      <CustomPicker
         selectedValue={nuevoGastoPrioridad}
-        onValueChange={itemValue => setNuevoGastoPrioridad(itemValue)}
-      >
-        <Picker.Item label="Prioridad alta" value="alta" />
-        <Picker.Item label="Prioridad media" value="media" />
-        <Picker.Item label="Prioridad baja" value="baja" />
-      </Picker>
+        onValueChange={setNuevoGastoPrioridad}
+        options={opcionesPrioridad}
+      />
       <Button title="Agregar Gasto" onPress={handleAgregarGasto} />
     </View>
   );

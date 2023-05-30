@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, Dimensions, StyleSheet } from "react-native";
+import { View, Text, Dimensions, StyleSheet, Modal, Button } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import SimpleDolar from "../Dolar/SimpleDolar"; // Asegúrate de importar el componente SimpleDolar desde el archivo correcto
 
 const MyChart = ({ data, selectedSource, selectedDataValue }) => {
+  const [selectedPoints, setSelectedPoints] = useState([]);
+
   if (!data || data.length === 0) {
     return <Text>No hay datos disponibles</Text>;
   }
@@ -16,7 +19,7 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
   const labels = recentData
     .map((item) => {
       const date = new Date(item.date);
-      return `${date.getMonth() + 1}/${date.getDate()+1}`;
+      return `${date.getMonth() + 1}/${date.getDate() + 1}`;
     })
     .filter((value, index, self) => self.indexOf(value) === index);
 
@@ -40,6 +43,19 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
       color: selectedSource === "Oficial" ? (opacity = 1) => `rgba(0, 255, 0, ${opacity})` : (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
     });
   }
+
+  const handleDataPointClick = (data) => {
+      if(selectedSource != 'All'){
+      const selectedIndex = data.index;
+      const selectedData = recentData[selectedIndex];
+      setSelectedPoints((prevSelectedPoints) => [...prevSelectedPoints, selectedData]);
+    };
+  }
+
+
+  const closeModal = () => {
+    setSelectedPoints([]);
+  };
 
   return (
     <View>
@@ -79,9 +95,41 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
           }
           return value;
         }}
+          onDataPointClick={handleDataPointClick}
+
+
       />
+
+      <Modal visible={selectedPoints.length > 0} animationType="slide">
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Detalle del punto seleccionado:</Text>
+          {selectedPoints.map((selectedPoint, index) => (
+            <SimpleDolar
+              key={index}
+              date={selectedPoint.date}
+              value={selectedPoint[selectedDataValue]}
+              source={selectedPoint.source}
+            />
+          ))}
+          <Button title="Cerrar" onPress={closeModal} />
+        </View>
+      </Modal>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+});
 
 export default MyChart;
