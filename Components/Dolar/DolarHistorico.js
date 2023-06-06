@@ -1,29 +1,47 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar, Alert } from "react-native";
-import { StyleSheet, View, ScrollView, Text, TextInput, Button, ActivityIndicator,SafeAreaView } from "react-native";
-import DolarList from '../Dolar/DolarList.js';
+import {
+  Alert,
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  Button,
+  ActivityIndicator,
+  StatusBar,
+  SafeAreaView,
+  Modal,
+  TouchableWithoutFeedback,
+} from "react-native";
+import DolarList from "../Dolar/DolarList.js";
 import MyChart from "../Graficos/Grafico";
 import CustomPicker from "../Picker/CustomPicker";
 
 export default function DolarValues() {
-  const [dolarValues, setData] = useState([]);
+  const [dolarValues, setDolarValues] = useState([]);
   const [numDays, setNumDays] = useState("1");
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedSource, setSelectedSource] = useState("All");
+  const [selectedSource, setSelectedSource] = useState("Oficial");
   const [selectedDataValue, setSelectedDataValue] = useState("value_sell");
-  
+  const [showDolarList, setShowDolarList] = useState(false);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    try{
+    try {
       setIsLoading(true);
-      const response = await fetch(`https://api.bluelytics.com.ar/v2/evolution.json?days=${numDays * 2}`);
+      const response = await fetch(
+        `https://api.bluelytics.com.ar/v2/evolution.json`
+      );
       const json = await response.json();
-      setData(json);
+
+      const filteredData = json.slice(0, numDays * 2);
+
+      setDolarValues(filteredData);
       setIsLoading(false);
-    }catch (error){
+    } catch (error) {
       console.error("Error obteniendo la información del dolar histórico", error);
       setIsLoading(false);
     }
@@ -34,12 +52,16 @@ export default function DolarValues() {
     if (parsedNumDays <= 0) {
       Alert.alert("Error", "El número de días debe ser mayor a cero.");
       return;
+    } else {
+      if (parsedNumDays > 730) {
+        Alert.alert("Error", "Solo se pueden ver los valores históricos del último año!");
+        return;
+      }
     }
     fetchData();
   };
 
   const options = [
-    { label: "Todos", value: "All" },
     { label: "Valor dolar oficial", value: "Oficial" },
     { label: "Valor dolar blue", value: "Blue" },
   ];
@@ -49,47 +71,82 @@ export default function DolarValues() {
     { label: "Valor venta", value: "value_buy" },
   ];
 
+  const handleOpenDolarList = () => {
+    setShowDolarList(true);
+  };
+
+  const handleCloseDolarList = () => {
+    setShowDolarList(false);
+  };
+
   return (
     <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.centerContainer}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.centerContainer}>
           <Text style={styles.title}>Valor del dolar Histórico</Text>
-            <View style={styles.inputContainer}>
-              <Text style={styles.whiteLetter}>Ingrese el número de días:</Text>
-              <TextInput
-                style={styles.input}
-                value={numDays}
-                onChangeText={setNumDays}
-                keyboardType="numeric"
-              />
-              <Button title="Actualizar" onPress={handleUpdate} />
-            </View>
-            {isLoading ? (
-              <ActivityIndicator size="large" color="#000000" />
-            ) : (
-              <>
-                <View style={styles.pickerContainer}>
-                  <CustomPicker
-                    selectedValue={selectedSource}
-                    onValueChange={(itemValue) => setSelectedSource(itemValue)}
-                    options={options}
-                  />
-                </View>
-                <View style={styles.pickerContainer}>
-                  <CustomPicker
-                    selectedValue={selectedDataValue}
-                    onValueChange={(itemValue) => setSelectedDataValue(itemValue)}
-                    options={options2}
-                  />
-                </View>
-                <MyChart data={dolarValues} selectedSource={selectedSource} selectedDataValue={selectedDataValue} />
-                <DolarList items={dolarValues} selectedSource={selectedSource} />
-              </>
-            )}
+          <View style={styles.inputContainer}>
+            <Text style={styles.whiteLetter}>Ingrese el número de días:</Text>
+            <TextInput
+              style={styles.input}
+              value={numDays}
+              onChangeText={setNumDays}
+              keyboardType="numeric"
+            />
+            <Button title="Actualizar" onPress={handleUpdate} />
           </View>
-        </ScrollView>
-        <StatusBar style="auto" />
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#000000" />
+          ) : (
+            <>
+              <View style={styles.pickerContainer}>
+                <CustomPicker
+                  selectedValue={selectedSource}
+                  onValueChange={(itemValue) => setSelectedSource(itemValue)}
+                  options={options}
+                />
+              </View>
+              <View style={styles.pickerContainer}>
+                <CustomPicker
+                  selectedValue={selectedDataValue}
+                  onValueChange={(itemValue) => setSelectedDataValue(itemValue)}
+                  options={options2}
+                />
+              </View>
+              <MyChart
+                data={dolarValues}
+                selectedSource={selectedSource}
+                selectedDataValue={selectedDataValue}
+              />
+              <Button
+                title={`Ver dolar individual de los últimos ${numDays} dias`}
+                onPress={handleOpenDolarList}
+              />
+            </>
+          )}
+        </View>
+      </ScrollView>
+      <StatusBar style="auto" />
 
+      {/* Modal para mostrar el DolarList */}
+      <Modal visible={showDolarList} animationType="slide">
+        <SafeAreaView style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalHeaderText}>Valores individuales por fecha</Text>
+            <TouchableWithoutFeedback onPress={handleCloseDolarList}>
+              <Text style={styles.modalCloseText}>Cerrar</Text>
+            </TouchableWithoutFeedback>
+          </View>
+          <ScrollView style={styles.modalContent}>
+            <DolarList
+              items={dolarValues}
+              selectedSource={"All"}
+            />
+          </ScrollView>
+        </SafeAreaView>
+      </Modal>
     </View>
   );
 }
@@ -134,19 +191,46 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 10,
   },
-  row:{
+  row: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   column: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingTop: 20,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  modalHeaderText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  modalCloseText: {
+    fontSize: 16,
+    color: "blue",
+  },
+  modalContent: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingTop: 10,
   },
 });

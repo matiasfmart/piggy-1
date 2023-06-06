@@ -24,7 +24,7 @@ const GastoView = () => {
   ]);
 
   const opciones = [
-    { label: 'Mostrar todos', value: "Mostrar todos" },
+    { label: 'Mostrar todos', value: 'Mostrar todos' },
     { label: 'Prioridad alta', value: 'alta' },
     { label: 'Prioridad media', value: 'media' },
     { label: 'Prioridad baja', value: 'baja' },

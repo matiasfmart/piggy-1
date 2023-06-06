@@ -52,7 +52,7 @@ const CustomDrawerNavigator = () => {
         <Drawer.Screen name="Plan De Ahorro" component={Home} />
         <Drawer.Screen name="Usuarios" component={Users} />
         <Drawer.Screen name="Valor Dolar" component={Dolar} />
-        <Drawer.Screen name="Login" component={Login} options={{ drawerLockMode: 'locked-closed', headerShown: false}}
+        <Drawer.Screen name="Login" component={Login} //options={{ drawerLockMode: 'locked-closed', headerShown: false}}
         />
         <Drawer.Screen name="DolarEuroActual" component={DolarEuroActual} />
         <Drawer.Screen name="DolarHistorico" component={DolarHistorico} />

@@ -59,7 +59,7 @@ const MyChart = ({ data, selectedSource, selectedDataValue }) => {
 
   return (
     <View>
-      <Text>Bezier Line Chart</Text>
+      <Text></Text>
 
       <LineChart
         data={{

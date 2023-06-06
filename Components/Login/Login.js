@@ -1,55 +1,108 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import TextInputField from "./TextInputField";
+import ErrorText from "./ErrorText";
 
 const Login = () => {
-  const navigation = useNavigation(); // Obtener la instancia de navegación
-
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleLogin = () => {
-    // Aquí puedes realizar la lógica de autenticación con el servidor
-    // Por simplicidad, este ejemplo solo muestra los valores ingresados en el formulario
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const handleLogin = async () => {
+    setEmailError("");
+    setPasswordError("");
+    setLoginError("");
+    setSubmitted(true);
 
-    // Redirigir a la HomeView
-    navigation.navigate("Plan De Ahorro");
+    if (email === "" && password === "") {
+      setEmailError("No puede quedar el campo vacío");
+      setPasswordError("No puede quedar el campo vacío");
+      return;
+    }
+
+    if (email === "") {
+      setEmailError("No puede quedar el campo vacío");
+      return;
+    }
+
+    if (password === "") {
+      setPasswordError("No puede quedar el campo vacío");
+      return;
+    }
+
+    if (!isEmailValid(email)) {
+      setEmailError("Correo electrónico inválido");
+      return;
+    }
+    try {
+      // Realizar la solicitud de inicio de sesión al backend
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      // Verificar el código de respuesta
+      if (response.ok) {
+        // Si la respuesta es exitosa, redirigir a la pantalla de inicio de sesión
+        navigation.navigate("Plan De Ahorro");
+      } else {
+        // Si la respuesta no es exitosa, mostrar el mensaje de error en la interfaz
+        const errorResponse = await response.json();
+        setLoginError(errorResponse.error);
+      }
+    } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
+      setLoginError("Error en el inicio de sesión");
+    }
+  };
+
+  const isEmailValid = (email) => {
+    // Expresión regular para verificar el formato de correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleRegister = () => {
-    // Aquí puedes realizar la lógica de autenticación con el servidor
-    // Por simplicidad, este ejemplo solo muestra los valores ingresados en el formulario
+    // Aquí puedes implementar la lógica para redirigir al componente de registro
     console.log("Enviar a componente Register.");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar sesión</Text>
-      <TextInput
-        style={styles.input}
+      <TextInputField
         placeholder="Correo electrónico"
         value={email}
         onChangeText={setEmail}
       />
-      <TextInput
-        style={styles.input}
+      <ErrorText error={submitted ? emailError : null} />
+      <TextInputField
         placeholder="Contraseña"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
+      <ErrorText error={submitted ? passwordError : null} />
       <Button title="Iniciar sesión" onPress={handleLogin} />
-      <Button title="Redireccion" onPress={() => navigation.navigate("Plan De Ahorro")}></Button>
+
+      <ErrorText error={submitted ? loginError : null} />
 
       <Text style={styles.register}>¿No tenés una cuenta de Piggy?</Text>
       <Button title="Registrate gratis" onPress={handleRegister} />
     </View>
   );
-};
-
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -62,17 +115,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
   },
-  input: {
-    width: "100%",
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
   register: {
     paddingTop: 20,
-  }
+  },
 });
 
 export default Login;

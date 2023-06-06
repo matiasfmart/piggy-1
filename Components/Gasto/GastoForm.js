@@ -22,7 +22,7 @@ const GastoForm = ({ onAgregarGasto }) => {
     onAgregarGasto(nuevoGasto);
     setNuevoGastoNombre('');
     setNuevoGastoCosto('');
-    setNuevoGastoPrioridad('alta');
+    setNuevoGastoPrioridad('baja');
   };
 
   return (
