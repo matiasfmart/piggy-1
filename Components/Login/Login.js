@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, Button, StyleSheet, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import TextInputField from "./TextInputField";
 import ErrorText from "./ErrorText";
+import Logo from "../../assets/logo.png"
 
 const Login = () => {
   const navigation = useNavigation();
@@ -80,6 +81,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
+      <Image source={Logo}/>
       <Text style={styles.title}>Iniciar sesión</Text>
       <TextInputField
         placeholder="Correo electrónico"
@@ -102,7 +104,7 @@ const Login = () => {
       <Button title="Registrate gratis" onPress={handleRegister} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   register: {
-    paddingTop: 20,
+    paddingBottom: 10,
   },
 });
 

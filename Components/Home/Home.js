@@ -4,8 +4,8 @@ import { View, Text, Button, StyleSheet } from "react-native";
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tu plan de ahorro:</Text>
-      <Button title="Crear nuevo plan de ahorro" />
+        <Text style={styles.title}>Tu plan de ahorro:</Text>
+        <Button title="Crear nuevo plan de ahorro" />
     </View>
   );
 };

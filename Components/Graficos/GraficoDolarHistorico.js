@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Dimensions, StyleSheet, Modal, Button } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import SimpleDolar from "../Dolar/SimpleDolar"; // Asegúrate de importar el componente SimpleDolar desde el archivo correcto
+import SimpleDolar from "../Dolar/SimpleDolar";
 
 const MyChart = ({ data, selectedSource, selectedDataValue }) => {
   const [selectedPoints, setSelectedPoints] = useState([]);

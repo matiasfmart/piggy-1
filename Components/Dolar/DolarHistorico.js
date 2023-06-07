@@ -14,7 +14,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import DolarList from "../Dolar/DolarList.js";
-import MyChart from "../Graficos/Grafico";
+import MyChart from "../Graficos/GraficoDolarHistorico.js";
 import CustomPicker from "../Picker/CustomPicker";
 
 export default function DolarValues() {
@@ -88,7 +88,7 @@ export default function DolarValues() {
         <View style={styles.centerContainer}>
           <Text style={styles.title}>Valor del dolar Histórico</Text>
           <View style={styles.inputContainer}>
-            <Text style={styles.whiteLetter}>Ingrese el número de días:</Text>
+            <Text>Ingrese el número de días:</Text>
             <TextInput
               style={styles.input}
               value={numDays}
@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
   input: {
     width: 200,
     height: 40,
-    color: "white",
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 10,

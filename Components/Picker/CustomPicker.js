@@ -28,8 +28,6 @@ const styles = StyleSheet.create({
     width: 300, // Ajusta el valor según el ancho deseado
   },
   picker: {
-    backgroundColor: "rgba(0, 255, 0, 0.5)",
-    color: "#ffffff",
     flex: 1,
   },
 });
