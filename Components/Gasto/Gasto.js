@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 
-const Gasto = ({ gasto, onEditarGasto }) => {
+const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
   const { nombre, prioridad, costo } = gasto;
   const [modalVisible, setModalVisible] = useState(false);
   const [editNombre, setEditNombre] = useState(nombre);
@@ -49,6 +49,9 @@ const Gasto = ({ gasto, onEditarGasto }) => {
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Text style={styles.editButton}>Editar</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={onEliminarGasto}>
+        <Text style={styles.deleteButton}>Eliminar</Text>
+      </TouchableOpacity>
       <Modal
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
@@ -85,6 +88,11 @@ const styles = StyleSheet.create({
   },
   editButton: {
     color: 'blue',
+    textDecorationLine: 'underline',
+    marginTop: 10,
+  },
+  deleteButton: {
+    color: 'black',
     textDecorationLine: 'underline',
     marginTop: 10,
   },
