@@ -9,7 +9,6 @@ import Gastos from '../Gasto/GastoSection.jsx';
 import DolarEuroActual from '../Dolar/DolarEuroActual.js';
 import DolarHistorico from '../Dolar/DolarHistorico.js';
 import logoImage from '../../assets/logo.png';
-import GraficoSection from '../Graficos/GraficoSection.jsx';
 
 const CustomDrawerContent = (props) => {
   return (
@@ -47,7 +46,6 @@ const CustomDrawerNavigator = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Login" screenOptions={{ headerShown: true }} drawerContent={CustomDrawerContent}>
-      <Drawer.Screen name="BORRAR GraficoSection" component={GraficoSection} />
         <Drawer.Screen name="Plan De Ahorro" component={Home} />
         <Drawer.Screen name="Login" component={Login} //options={{ drawerLockMode: 'locked-closed', headerShown: false}}
         />

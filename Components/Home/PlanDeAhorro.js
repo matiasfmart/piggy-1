@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import Chart from '../Graficos/GraficoPlanAhorro'
 
 export default function PlanDeAhorro() {
   return (
@@ -28,6 +29,8 @@ export default function PlanDeAhorro() {
           <Text style={styles.pendingDays}>/15</Text>
         </View>
       </View>
+
+      <Chart/>
     </View>
   );
 }

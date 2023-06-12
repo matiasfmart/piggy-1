@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import DolarEuroList from "./DolarEuroList";
+import Service from "../Services/DolarEuroActualService.js"
 
 const DolarEuroActual = () => {
   const [data, setData] = useState(null);
@@ -12,13 +13,12 @@ const DolarEuroActual = () => {
 
   const fetchData = async () => {
     try {
-      setIsLoading(true)
-      const response = await fetch("https://api.bluelytics.com.ar/v2/latest");
-      const json = await response.json();
-      setData(json);
-      setIsLoading(false);
+      setIsLoading(true);
+      const jsonData = await Service.fetchDolarEuroData();
+      setData(jsonData);
     } catch (error) {
-      console.error("Error obteniendo la información del dolar/euro actual", error);
+      console.error("Error obtaining current dollar/euro information", error);
+    } finally {
       setIsLoading(false);
     }
   };
