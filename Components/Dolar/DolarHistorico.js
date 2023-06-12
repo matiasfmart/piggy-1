@@ -16,9 +16,11 @@ import {
 import DolarList from "../Dolar/DolarList.js";
 import MyChart from "../Graficos/GraficoDolarHistorico.js";
 import CustomPicker from "../Picker/CustomPicker";
+import fetchDolarHistoricoData from "../Services/DolarHistoricoService.js";
 
 export default function DolarValues() {
   const [dolarValues, setDolarValues] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [numDays, setNumDays] = useState("1");
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSource, setSelectedSource] = useState("Oficial");
@@ -30,21 +32,15 @@ export default function DolarValues() {
   }, []);
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await fetch(
-        `https://api.bluelytics.com.ar/v2/evolution.json`
-      );
-      const json = await response.json();
-
-      const filteredData = json.slice(0, numDays * 2);
-
-      setDolarValues(filteredData);
-      setIsLoading(false);
+      const data = await fetchDolarHistoricoData();
+      setDolarValues(data);
+      setFilteredData(data.slice(0, numDays * 2));
     } catch (error) {
       console.error("Error obteniendo la información del dolar histórico", error);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const handleUpdate = () => {
@@ -52,13 +48,11 @@ export default function DolarValues() {
     if (parsedNumDays <= 0) {
       Alert.alert("Error", "El número de días debe ser mayor a cero.");
       return;
-    } else {
-      if (parsedNumDays > 730) {
-        Alert.alert("Error", "Solo se pueden ver los valores históricos del último año!");
-        return;
-      }
+    } else if (parsedNumDays > 730) {
+      Alert.alert("Error", "Solo se pueden ver los valores históricos del último año!");
+      return;
     }
-    fetchData();
+    setFilteredData(dolarValues.slice(0, parsedNumDays * 2));
   };
 
   const options = [
@@ -116,7 +110,7 @@ export default function DolarValues() {
                 />
               </View>
               <MyChart
-                data={dolarValues}
+                data={filteredData}
                 selectedSource={selectedSource}
                 selectedDataValue={selectedDataValue}
               />
@@ -141,7 +135,7 @@ export default function DolarValues() {
           </View>
           <ScrollView style={styles.modalContent}>
             <DolarList
-              items={dolarValues}
+              items={filteredData}
               selectedSource={"All"}
             />
           </ScrollView>
@@ -150,7 +144,6 @@ export default function DolarValues() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
