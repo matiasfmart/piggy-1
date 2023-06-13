@@ -41,7 +41,7 @@ const Login = () => {
       return;
     }
     try {
-      // Realizar la solicitud de inicio de sesión al backend
+      //solicitar login al back
       const response = await fetch("http://localhost:8080/login", {
         method: "POST",
         headers: {
@@ -53,12 +53,12 @@ const Login = () => {
         }),
       });
 
-      // Verificar el código de respuesta
+      //verificar la respuesta
       if (response.ok) {
-        // Si la respuesta es exitosa, redirigir a la pantalla de inicio de sesión
+        //si la respuesta es correcta, rederigit
         navigation.navigate("Plan De Ahorro");
       } else {
-        // Si la respuesta no es exitosa, mostrar el mensaje de error en la interfaz
+        //si la respuesta no es exitosa, informar
         const errorResponse = await response.json();
         setLoginError(errorResponse.error);
       }

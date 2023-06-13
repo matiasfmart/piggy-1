@@ -26,7 +26,7 @@ export default function HomeView() {
     return <PlanDeAhorro planData={planData} />;
   }
 }
-
+/*
 const styles = StyleSheet.create({
   container: {
     padding: 20,
@@ -79,4 +79,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
-});
+  
+})*/;

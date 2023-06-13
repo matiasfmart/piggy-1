@@ -46,6 +46,7 @@ const CustomDrawerNavigator = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Login" screenOptions={{ headerShown: true }} drawerContent={CustomDrawerContent}>
+      
         <Drawer.Screen name="Plan De Ahorro" component={Home} />
         <Drawer.Screen name="Login" component={Login} //options={{ drawerLockMode: 'locked-closed', headerShown: false}}
         />
