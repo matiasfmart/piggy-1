@@ -29,12 +29,12 @@ const Home = () => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Ingresos"
+        placeholder="Ingresos mensuales"
         onChangeText={(value) => handleInputChange('ingresos', value)}
       />
       <TextInput
         style={styles.input}
-        placeholder="Ahorro"
+        placeholder="Meta de ahorro"
         onChangeText={(value) => handleInputChange('ahorro', value)}
       />
       <Button title="Crear nuevo plan de ahorro" onPress={createPlan} />

@@ -8,6 +8,7 @@ import Login from '../Login/LoginSection.jsx';
 import Gastos from '../Gasto/GastoSection.jsx';
 import DolarEuroActual from '../Dolar/DolarEuroActual.js';
 import DolarHistorico from '../Dolar/DolarHistorico.js';
+import LogOut from '../LogOut/LogOutSection.jsx';
 import logoImage from '../../assets/logo.png';
 
 const CustomDrawerContent = (props) => {
@@ -53,6 +54,7 @@ const CustomDrawerNavigator = () => {
         <Drawer.Screen name="Cotizaciones Actuales" component={DolarEuroActual} />
         <Drawer.Screen name="Dolar Histórico" component={DolarHistorico} />
         <Drawer.Screen name="Gastos" component={Gastos}/>
+        <Drawer.Screen name="LogOut" component={LogOut}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );

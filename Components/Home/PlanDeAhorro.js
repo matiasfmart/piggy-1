@@ -1,4 +1,3 @@
-// PlanDeAhorro.js
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Chart from "../Graficos/GraficoPlanAhorro";
