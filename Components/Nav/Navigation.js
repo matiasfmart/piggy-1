@@ -8,6 +8,7 @@ import Login from '../Login/LoginSection.jsx';
 import Gastos from '../Gasto/GastoSection.jsx';
 import DolarEuroActual from '../Dolar/DolarEuroActual.js';
 import DolarHistorico from '../Dolar/DolarHistorico.js';
+import Signin from '../Login/SignIn.js';
 import LogOut from '../LogOut/LogOutSection.jsx';
 import logoImage from '../../assets/logo.png';
 
@@ -47,7 +48,7 @@ const CustomDrawerNavigator = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Login" screenOptions={{ headerShown: true }} drawerContent={CustomDrawerContent}>
-      
+        <Drawer.Screen name="Signin" component={Signin} />
         <Drawer.Screen name="Plan De Ahorro" component={Home} />
         <Drawer.Screen name="Login" component={Login} //options={{ drawerLockMode: 'locked-closed', headerShown: false}}
         />

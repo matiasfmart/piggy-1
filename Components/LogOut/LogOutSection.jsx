@@ -1,22 +1,27 @@
 import React from "react";
 import { View, Text, Button, StyleSheet, Image } from "react-native";
-import Logo from "../../assets/logo.png"
+import { useNavigation } from "@react-navigation/native";
+import Logo from "../../assets/logo.png";
 
 export default function LogOutSection() {
+  const navigation = useNavigation();
 
-    const handleLogOut = () => {
-        return false
-    }
+  const handleLogOut = () => {
+    navigation.navigate("Login");
+  };
 
   return (
     <View style={styles.container}>
       <Image source={Logo} />
       <Text style={styles.title}>Cerrar sesión</Text>
-      <Text style={styles.register}>¿Estás seguro que quieres cerrar sesión?</Text>
+      <Text style={styles.register}>
+        ¿Estás seguro de que quieres cerrar sesión?
+      </Text>
       <Button title="Cerrar Sesión" onPress={handleLogOut} />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

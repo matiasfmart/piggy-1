@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
   error: {
     color: "red",
     marginBottom: 10,
+    textAlign: "center",
   },
   emptyError: {
     height: 20,

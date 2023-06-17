@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TextInputField from "./TextInputField";
 import ErrorText from "./ErrorText";
+import LoginService from "../Services/LoginService";
 import Logo from "../../assets/logo.png"
 
 const Login = () => {
@@ -19,54 +20,53 @@ const Login = () => {
     setPasswordError("");
     setLoginError("");
     setSubmitted(true);
-
-    if (email === "" && password === "") {
-      setEmailError("No puede quedar el campo vacío");
-      setPasswordError("No puede quedar el campo vacío");
-      return;
-    }
-
-    if (email === "") {
-      setEmailError("No puede quedar el campo vacío");
-      return;
-    }
-
-    if (password === "") {
-      setPasswordError("No puede quedar el campo vacío");
-      return;
-    }
-
-    if (!isEmailValid(email)) {
-      setEmailError("Correo electrónico inválido");
-      return;
-    }
-    try {
-      //solicitar login al back
-      const response = await fetch("http://localhost:8080/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-
-      //verificar la respuesta
-      if (response.ok) {
-        //si la respuesta es correcta, rederigit
-        navigation.navigate("Plan De Ahorro");
-      } else {
-        //si la respuesta no es exitosa, informar
-        const errorResponse = await response.json();
-        setLoginError(errorResponse.error);
+  
+    const fields = [
+      { name: "email", value: email, errorMessage: "No puede quedar el campo vacío" },
+      { name: "password", value: password, errorMessage: "No puede quedar el campo vacío" },
+    ];
+  
+    const setError = (fieldName, errorMessage) => {
+      switch (fieldName) {
+        case "email":
+          setEmailError(errorMessage);
+          break;
+        case "password":
+          setPasswordError(errorMessage);
+          break;
+        default:
+          break;
       }
-    } catch (error) {
-      console.error("Error en el inicio de sesión:", error);
-      setLoginError("Error en el inicio de sesión");
+    };
+  
+    fields.forEach(field => {
+      if (field.value === "") {
+        setError(field.name, field.errorMessage);
+      }
+    });
+  
+    if (email !== "" && !isEmailValid(email)) {
+      setError("email", "Correo electrónico inválido");
     }
-  };
+  
+    let hasErrors = fields.some(field => field.value === "" || field.name === "email" && !isEmailValid(field.value));
+  
+    if (hasErrors) {
+      return;
+    }
+
+    try {
+      const data = await LoginService.login(email, password);
+      navigation.navigate("Plan De Ahorro");
+    } catch (error) {
+      if (error.message === "Credenciales inválidas") {
+        setIncorrectPasswordError("Credenciales inválidas");
+      } else {
+        setLoginError(error.message);
+      }
+    }
+  }
+
 
   const isEmailValid = (email) => {
     // Expresión regular para verificar el formato de correo electrónico
@@ -76,7 +76,7 @@ const Login = () => {
 
   const handleRegister = () => {
     // Aquí puedes implementar la lógica para redirigir al componente de registro
-    console.log("Enviar a componente Register.");
+    navigation.navigate("Signin");
   };
 
   return (
