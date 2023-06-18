@@ -16,7 +16,7 @@ import {
 import DolarList from "../Dolar/DolarList.js";
 import MyChart from "../Graficos/GraficoDolarHistorico.js";
 import CustomPicker from "../Picker/CustomPicker";
-import fetchDolarHistoricoData from "../Services/DolarHistoricoService.js";
+import fetchDolarHistoricoData from "../../Services/DolarHistoricoService.js";
 
 export default function DolarValues() {
   const [dolarValues, setDolarValues] = useState([]);

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
-import planService from '../Services/PlanService.js';
+import { useNavigation } from '@react-navigation/native';
+import AuthContext from '../../Globals/authContext';
+import planService from '../../Services/PlanService.js';
 
 const Home = () => {
+  const navigation = useNavigation();
+  const { userAuth } = useContext(AuthContext);
   const [planData, setPlanData] = useState({
     nombre: '',
     ingresos: '',
@@ -14,8 +18,16 @@ const Home = () => {
   };
 
   const createPlan = async () => {
-    const result = await planService.createPlan(planData);
-    console.log(result); // result of the post request
+    try {
+      const data = { id_usuario: userAuth, ...planData };
+      const result = await planService.createPlan(data);
+      console.log(result);
+      // Navegar de regreso a la pantalla de inicio con el parámetro 'planCreated'
+      navigation.navigate("Plan De Ahorro", { planCreated: true });
+    } catch (error) {
+      console.error("Error al crear el plan:", error);
+      // Manejar el error
+    }
   };
 
   return (
@@ -54,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   texto: {
-    marginBottom:20
+    marginBottom: 20
   },
   input: {
     height: 40,

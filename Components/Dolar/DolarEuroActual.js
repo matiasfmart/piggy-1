@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import DolarEuroList from "./DolarEuroList";
-import Service from "../Services/DolarEuroActualService.js"
+import Service from "../../Services/DolarEuroActualService.js"
 
 const DolarEuroActual = () => {
   const [data, setData] = useState(null);

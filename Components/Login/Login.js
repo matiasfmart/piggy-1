@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TextInputField from "./TextInputField";
 import ErrorText from "./ErrorText";
-import LoginService from "../Services/LoginService";
+import LoginService from "../../Services/LoginService";
 import Logo from "../../assets/logo.png"
+import AuthContext from "../../Globals/authContext";
 
 const Login = () => {
+  const {userAuth, setUserAuth} = useContext(AuthContext);
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +16,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
 
   const handleLogin = async () => {
     setEmailError("");
@@ -55,9 +58,11 @@ const Login = () => {
       return;
     }
 
+
     try {
       const data = await LoginService.login(email, password);
-      navigation.navigate("Plan De Ahorro");
+      setUserAuth(data.userId)
+      
     } catch (error) {
       if (error.message === "Credenciales inválidas") {
         setIncorrectPasswordError("Credenciales inválidas");

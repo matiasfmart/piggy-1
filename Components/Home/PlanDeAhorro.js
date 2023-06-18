@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Chart from "../Graficos/GraficoPlanAhorro";
 
@@ -24,7 +24,7 @@ export default function PlanDeAhorro({ planData }) {
           <Text style={styles.bigText}>{remainingDays}</Text>
         </View>
       </View>
-      <Chart />
+      <Chart/>
     </View>
   );
 }

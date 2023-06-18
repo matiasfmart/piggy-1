@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
@@ -12,6 +12,13 @@ import Signin from '../Login/SignIn.js';
 import LogOut from '../LogOut/LogOutSection.jsx';
 import logoImage from '../../assets/logo.png';
 
+import AuthContext, {defaultAuth} from '../../Globals/authContext/index.js';
+import Storage from '../../Services/asyncStorage.js';
+
+
+
+
+
 const CustomDrawerContent = (props) => {
   return (
     <DrawerContentScrollView {...props}>
@@ -23,6 +30,41 @@ const CustomDrawerContent = (props) => {
       </View>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
+  );
+};
+
+
+const CustomDrawerNavigator = () => {
+  const Drawer = createDrawerNavigator();
+  const [userAuth, setUserAuth] = useState(defaultAuth);
+
+
+  const shouldShowAuthScreens = (userAuth === defaultAuth);
+  return (
+    <AuthContext.Provider value={{userAuth, setUserAuth}}>
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName={shouldShowAuthScreens ? "Login" : "Plan De Ahorro"}
+          screenOptions={{ headerShown: true }}
+          drawerContent={CustomDrawerContent}
+        >
+          {shouldShowAuthScreens ? (
+           <>
+             <Drawer.Screen name="Login" component={Login} />
+             <Drawer.Screen name="Signin" component={Signin} />
+           </>
+          ) : (
+            <>
+             <Drawer.Screen name="Plan De Ahorro" component={Home} />
+             <Drawer.Screen name="Cotizaciones Actuales" component={DolarEuroActual} />
+             <Drawer.Screen name="Dolar Histórico" component={DolarHistorico} />
+             <Drawer.Screen name="Gastos" component={Gastos} />
+             <Drawer.Screen name="LogOut" component={LogOut} />
+           </>
+          )}
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };
 
@@ -41,24 +83,5 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
-
-const CustomDrawerNavigator = () => {
-  const Drawer = createDrawerNavigator();
-
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Login" screenOptions={{ headerShown: true }} drawerContent={CustomDrawerContent}>
-        <Drawer.Screen name="Signin" component={Signin} />
-        <Drawer.Screen name="Plan De Ahorro" component={Home} />
-        <Drawer.Screen name="Login" component={Login} //options={{ drawerLockMode: 'locked-closed', headerShown: false}}
-        />
-        <Drawer.Screen name="Cotizaciones Actuales" component={DolarEuroActual} />
-        <Drawer.Screen name="Dolar Histórico" component={DolarHistorico} />
-        <Drawer.Screen name="Gastos" component={Gastos}/>
-        <Drawer.Screen name="LogOut" component={LogOut}/>
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
-};
 
 export default CustomDrawerNavigator;

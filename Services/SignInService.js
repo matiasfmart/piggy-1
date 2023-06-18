@@ -1,6 +1,10 @@
-const login = async (email, password) => {
+const baseURL = "http://localhost:8080"
+//const baseURL = "https://4188-186-139-158-165.sa.ngrok.io";
+
+
+const signIn = async (email, password) => {
     try {
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch(`${baseURL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,11 +23,11 @@ const login = async (email, password) => {
         throw new Error(errorResponse.error);
       }
     } catch (error) {
-      console.error("Error en el inicio de sesión:", error);
-      throw new Error("Error en el inicio de sesión: " + error.message);
+      console.error("Error en el la creación del nuevo usuario", error);
+      throw new Error("Error en el la creación del nuevo usuario" + error.message);
     }
   };
   
   export default {
-    login,
+    signIn,
   };

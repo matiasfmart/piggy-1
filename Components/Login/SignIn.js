@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TextInputField from "./TextInputField";
 import ErrorText from "./ErrorText";
-import SignInService from "../Services/SignInService.js";
+import SignInService from "../../Services/SignInService.js";
 import Logo from "../../assets/logo.png"
 
 const SignIn = () => {
@@ -55,6 +55,7 @@ const SignIn = () => {
     try {
       const data = await SignInService.signIn(email, password);
       navigation.navigate("Login");
+
     } catch (error) {
       setSigninError(error.message);
     }
