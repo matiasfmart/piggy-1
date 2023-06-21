@@ -13,6 +13,7 @@ export default function LogOutSection() {
 
   const handleLogOut = () => {
     try {
+      AuthContext;
       setUserAuth(defaultAuth);
       Storage.clearAll();
     } catch (error) {

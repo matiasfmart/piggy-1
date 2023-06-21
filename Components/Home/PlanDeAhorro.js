@@ -1,11 +1,32 @@
 import React, {useContext} from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import Chart from "../Graficos/GraficoPlanAhorro";
+import planService from "../../Services/PlanService";
+import { useNavigation } from '@react-navigation/native';
+import AuthContext from "../../Globals/authContext";
+
+
 
 export default function PlanDeAhorro({ planData }) {
+  const navigation = useNavigation();
+  const { userAuth } = useContext(AuthContext);
   const endDate = new Date(planData.fechaDeFinalizacion);
   const today = new Date();
   const remainingDays = Math.floor((endDate - today) / (1000 * 60 * 60 * 24));
+
+
+
+
+  const deletePlan = async () => {
+    try {
+      planService.deleteByUserId(userAuth);
+      navigation.navigate("Plan De Ahorro", { planDeleted: true });
+    } catch (error) {
+      console.error("Error al eliminar el plan de ahorro:", error);
+      // Manejar el error
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -24,7 +45,15 @@ export default function PlanDeAhorro({ planData }) {
           <Text style={styles.bigText}>{remainingDays}</Text>
         </View>
       </View>
-      <Chart/>
+      <Chart
+        endDate={endDate}
+        today={today}
+        ingresos={planData.ingresos}
+        ahorro={planData.ahorro}
+      />
+      <View style={styles.buttonContainer}>
+        <Button title="Eliminar plan" onPress={deletePlan} />
+      </View> 
     </View>
   );
 }
@@ -78,6 +107,9 @@ const styles = StyleSheet.create({
   },
   daysContainer: {
     alignItems: "center",
+    marginTop: 20,
+  },
+  buttonContainer: {
     marginTop: 20,
   },
 });

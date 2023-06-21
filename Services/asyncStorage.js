@@ -9,7 +9,6 @@ const storeData = async (key, value) => {
 }
 
 const getData = (key) => {
-
   return new Promise(async (accepted, rejected) =>{
     try {
       const value = await AsyncStorage.getItem(key)

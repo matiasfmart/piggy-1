@@ -22,6 +22,13 @@ export default function HomeView() {
   };
 
   useEffect(() => {
+    if (route.params?.planDeleted) {
+      navigation.setParams({ planDeleted: false });
+      setTienePlan(false);
+    }
+  }, [route.params?.planDeleted]);
+
+  useEffect(() => {
     fetchPlan();
   }, [userAuth]);
 

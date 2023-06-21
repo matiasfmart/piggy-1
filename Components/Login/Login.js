@@ -6,6 +6,8 @@ import ErrorText from "./ErrorText";
 import LoginService from "../../Services/LoginService";
 import Logo from "../../assets/logo.png"
 import AuthContext from "../../Globals/authContext";
+import Storage from "../../Services/asyncStorage";
+
 
 const Login = () => {
   const {userAuth, setUserAuth} = useContext(AuthContext);
@@ -62,6 +64,8 @@ const Login = () => {
     try {
       const data = await LoginService.login(email, password);
       setUserAuth(data.userId)
+
+      Storage.storeData('AuthData',data.userId.toString())
       
     } catch (error) {
       if (error.message === "Credenciales inválidas") {

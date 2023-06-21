@@ -19,6 +19,7 @@ import Storage from '../../Services/asyncStorage.js';
 
 
 
+
 const CustomDrawerContent = (props) => {
   return (
     <DrawerContentScrollView {...props}>
@@ -39,16 +40,26 @@ const CustomDrawerNavigator = () => {
   const [userAuth, setUserAuth] = useState(defaultAuth);
 
 
-  const shouldShowAuthScreens = (userAuth === defaultAuth);
+  useEffect(() => {
+    console.log("Busca AuthData....")
+    Storage.getData('AuthData')
+    .then(data => setUserAuth(data))
+    .catch(error => console.log("Error", error))
+    .finally(() => console.log("Si busco data"))
+  }, [])
+  
+
+
+
   return (
     <AuthContext.Provider value={{userAuth, setUserAuth}}>
       <NavigationContainer>
         <Drawer.Navigator
-          initialRouteName={shouldShowAuthScreens ? "Login" : "Plan De Ahorro"}
+          initialRouteName={userAuth ? "Login" : "Plan De Ahorro"}
           screenOptions={{ headerShown: true }}
           drawerContent={CustomDrawerContent}
         >
-          {shouldShowAuthScreens ? (
+          {(!userAuth) ? (
            <>
              <Drawer.Screen name="Login" component={Login} />
              <Drawer.Screen name="Signin" component={Signin} />
