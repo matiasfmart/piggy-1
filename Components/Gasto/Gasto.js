@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 
 const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
-  const { id, nombre, prioridad, costo } = gasto;
+  const { nombre, prioridad, costo } = gasto;
   const [modalVisible, setModalVisible] = useState(false);
   const [editNombre, setEditNombre] = useState(nombre);
   const [editCosto, setEditCosto] = useState(costo);
@@ -33,7 +33,6 @@ const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
 
   const handleEditarGasto = () => {
     const gastoEditado = {
-      id: id,
       nombre: editNombre,
       prioridad,
       costo: parseFloat(editCosto)
@@ -50,7 +49,7 @@ const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Text style={styles.editButton}>Editar</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={onEliminarGasto(id)}>
+      <TouchableOpacity onPress={onEliminarGasto}>
         <Text style={styles.deleteButton}>Eliminar</Text>
       </TouchableOpacity>
       <Modal
