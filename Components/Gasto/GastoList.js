@@ -11,8 +11,9 @@ const GastosList = ({ gastos, selectedPriority, onEditarGasto, onEliminarGasto }
     <ScrollView style={styles.scrollView}>
       {filteredGastos.map((gasto, index) => (
         <Gasto key={index} gasto={gasto} 
-               onEditarGasto={(gastoEditado) => onEditarGasto(index, gastoEditado)} 
-               onEliminarGasto={() => onEliminarGasto(index)} />
+               onEditarGasto={onEditarGasto} 
+               onEliminarGasto={onEliminarGasto} 
+        />
       ))}
     </ScrollView>
   );
