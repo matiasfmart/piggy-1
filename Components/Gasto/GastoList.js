@@ -50,7 +50,7 @@ const GastosList = ({ reloadGastos }) => {
   return (
     <ScrollView>
       {
-        gastos.count > 0 ?
+        gastos.length > 0 ?
             gastos.map((gasto) => (
               <Gasto
                 key={gasto.id}
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 24,
     fontWeight: 'bold',
-    fontFamily: 'Arial'
   },
 });
 

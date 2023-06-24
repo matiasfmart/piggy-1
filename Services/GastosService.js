@@ -1,5 +1,5 @@
-const baseURL = "http://localhost:8080"
-//  const baseURL = "https://cc57-186-139-158-165.sa.ngrok.io";
+//const baseURL = "http://localhost:8080"
+const baseURL = "https://22f7-186-139-158-165.sa.ngrok.io";
 
 const GastosService = {
   async getGastos(userAuth) {
