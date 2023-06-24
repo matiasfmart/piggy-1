@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import Gasto from './Gasto';
 import gastosService from '../../Services/GastosService.js';
 import AuthContext from '../../Globals/authContext';
@@ -49,17 +49,38 @@ const GastosList = ({ reloadGastos }) => {
 
   return (
     <ScrollView>
-      {gastos.map((gasto) => (
-        <Gasto
-          key={gasto.id}
-          gasto={gasto}
-          onEditarGasto={handleEditarGasto}
-          onEliminarGasto={handleEliminarGasto}
-        />
-      ))}
+      {
+        gastos.count > 0 ?
+            gastos.map((gasto) => (
+              <Gasto
+                key={gasto.id}
+                gasto={gasto}
+                onEditarGasto={handleEditarGasto}
+                onEliminarGasto={handleEliminarGasto}
+              />
+            ))
+          :
+          <View style={styles.container}>
+            <Text style={styles.centeredText}>No hay gastos agregados</Text>
+          </View>
+      }
     </ScrollView>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centeredText: {
+    textAlign: 'center',
+    marginTop: 50,
+    fontSize: 24,
+    fontWeight: 'bold',
+    fontFamily: 'Arial'
+  },
+});
 
 export default GastosList;
