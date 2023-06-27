@@ -1,5 +1,5 @@
-const baseURL = "http://localhost:8080"
-// const baseURL = "https://8f17-186-139-158-165.sa.ngrok.io";
+//const baseURL = "http://localhost:8080"
+const baseURL = "https://50f3-186-139-158-165.sa.ngrok.io";
 
 const GastosService = {
   async getGastos(userAuth) {
@@ -45,7 +45,7 @@ const GastosService = {
   async updateGasto(id, data) {
     try {
       const response = await fetch(`${baseURL}/gastos/${id}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -53,8 +53,18 @@ const GastosService = {
       });
       return await response.json();
     } catch (error) {
-      console.error("Error al eliminar el plan de ahorro:", error);
-      throw new Error("Error al eliminar el plan de ahorro: " + error.message);
+      console.error("Error al eliminar el gasto:", error);
+      throw new Error("Error al eliminar el gasto: " + error.message);
+    }
+  },
+
+  async getCostoTotal(userAuth) {
+    try {
+      const response = await fetch(`${baseURL}/gastos/costs/${userAuth}`);
+      return await response.json();
+    } catch (error) {
+      console.error('Error al obtener el costo total de los gastos:', error);
+      throw new Error('Error al obtener el costo total de los gastos: ' + error.message);
     }
   },
 };
