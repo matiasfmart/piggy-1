@@ -12,14 +12,14 @@ const getData = (key) => {
   return new Promise(async (accepted, rejected) =>{
     try {
       const value = await AsyncStorage.getItem(key)
-      console.log("Esto encuentra", value)
+      //console.log("Esto encuentra", value)
       if(value !== null) {
         // value previously stored
         
         return accepted(value)
       }
 
-      rejected(`${key} no existe`)
+      //rejected(`${key} no existe`)
     } catch(e) {
       // error reading value
       rejected(e)
@@ -35,7 +35,7 @@ const clearAll = async () => {
     // clear error
   }
 
-  console.log('Done.')
+  //console.log('Done.')
 }
 
 export default {

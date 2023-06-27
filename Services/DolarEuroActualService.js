@@ -6,7 +6,7 @@ const fetchDolarEuroData = async () => {
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error("Error obtaining current dollar/euro information", error);
+    console.error("Error obteniendo información sobre dolar/euro actual", error);
     throw error;
   }
 };

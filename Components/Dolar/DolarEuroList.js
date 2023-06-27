@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from "react-native";
 import DolarEuro from "./DolarEuro";
 
 const DolarEuroList = ({ prop }) => {
-  console.log(prop)
   return (
     <View>
       <View style={styles.section}>

@@ -26,7 +26,7 @@ export default function GraficoPlanAhorro({ endDate, today, ingresos, ahorro }) 
 
   const ahorroPercentage = (ahorro / ingresos) * 10;
   const data = {
-    labels: ["Días", "Ahorrado", "Dato"],
+    labels: ["Días", "Ahorrado", "Ingresos"],
     data: [progress, ahorroPercentage, ingresosPercentage],
   };
 

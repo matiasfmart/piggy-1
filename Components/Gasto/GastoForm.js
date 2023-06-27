@@ -20,7 +20,7 @@ const GastoForm = ({ onGastoCreado }) => {
     try {
       const nuevoGasto = {
         nombre: nuevoGastoNombre,
-        prioridad: nuevoGastoPrioridad,
+        prioridad: nuevoGastoPrioridad,     
         costo: parseFloat(nuevoGastoCosto),
         id_usuario: userAuth,
       };
@@ -30,7 +30,7 @@ const GastoForm = ({ onGastoCreado }) => {
 
       setNuevoGastoNombre('');
       setNuevoGastoCosto('');
-      setNuevoGastoPrioridad('baja');
+      setNuevoGastoPrioridad('Alta');
       onGastoCreado(); // Actualiza el estado en GastosView y vuelve a cargar GastosList
     } catch (error) {
       console.error('Error al crear el gasto:', error);
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 20,
+    marginTop: 15,
   },
 });
 
