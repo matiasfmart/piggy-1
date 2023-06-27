@@ -15,8 +15,8 @@ export default function HomeView() {
 
   const fetchPlan = async () => {
     const data = await planService.getPlan(userAuth);
-    if (data.length > 0) {
-      setPlanData(data[0]);
+    if (data.mensaje != "Plan de ahorro no encontrado") {
+      setPlanData(data);
       setTienePlan(true);
     }
   };

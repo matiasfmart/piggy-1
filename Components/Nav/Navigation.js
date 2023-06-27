@@ -41,11 +41,11 @@ const CustomDrawerNavigator = () => {
 
 
   useEffect(() => {
-    console.log("Busca AuthData....")
+    //console.log("Busca AuthData....")
     Storage.getData('AuthData')
     .then(data => setUserAuth(data))
     .catch(error => console.log("Error", error))
-    .finally(() => console.log("Si busco data"))
+    //.finally(() => console.log("Si busco data"))
   }, [])
   
 
@@ -61,8 +61,16 @@ const CustomDrawerNavigator = () => {
         >
           {(!userAuth) ? (
            <>
-             <Drawer.Screen name="Login" component={Login} />
-             <Drawer.Screen name="Signin" component={Signin} />
+             <Drawer.Screen name="Login" component={Login} 
+               options={{
+                headerShown: false,
+                drawerLockMode: 'locked-closed'
+              }}/>
+             <Drawer.Screen name="Signin" component={Signin} 
+               options={{
+                headerShown: false,
+                drawerLockMode: 'locked-closed',
+              }}/>
            </>
           ) : (
             <>

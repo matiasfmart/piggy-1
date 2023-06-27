@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   errorContainer: {
-    height: 20,
+    height: 30,
   },
   errorText: {
     textAlign: 'center',

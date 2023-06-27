@@ -17,7 +17,7 @@ const DolarEuroActual = () => {
       const jsonData = await Service.fetchDolarEuroData();
       setData(jsonData);
     } catch (error) {
-      console.error("Error obtaining current dollar/euro information", error);
+      console.error("Error obteniendo información sobre dolar/euro actual", error);
     } finally {
       setIsLoading(false);
     }

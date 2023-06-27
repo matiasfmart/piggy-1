@@ -22,12 +22,12 @@ export default function GraficoPlanAhorro({ endDate, today, ingresos, ahorro }) 
   const progress = (totalDays - remainingDays) / totalDays;
 
   // Calcular el porcentaje de ingresos y ahorro en relación al objetivo
-  const ingresosPercentage = (ingresos / ingresos);
-
-  const ahorroPercentage = (ahorro / ingresos) * 10;
+  const ahorroPercentage = (ahorro / ingresos);
+  
   const data = {
-    labels: ["Días", "Ahorrado", "Dato"],
-    data: [progress, ahorroPercentage, ingresosPercentage],
+    labels: ["Días", "Ahorrado", "Ingresos"],
+    //como el back no tiene la lógica forzamos el 1 para dias, en cambio ingresos siempre va a ser 100% por el momento
+    data: [0, ahorroPercentage, 1],
   };
 
   return (

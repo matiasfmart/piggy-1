@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 
 const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
-  const { nombre, prioridad, costo } = gasto;
+  const { id, nombre, prioridad, costo } = gasto;
   const [modalVisible, setModalVisible] = useState(false);
   const [editNombre, setEditNombre] = useState(nombre);
   const [editCosto, setEditCosto] = useState(costo);
@@ -10,17 +10,17 @@ const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
   // Definir el color del rectángulo basado en la prioridad
   const getPriorityStyle = (prioridad) => {
     switch (prioridad) {
-      case 'alta':
+      case 'Alta':
         return {
           container: { backgroundColor: 'red' },
         };
-      case 'media':
+      case 'Media':
         return {
           container: { backgroundColor: 'orange' },
         };
-      case 'baja':
+      case 'Baja':
         return {
-          container: { backgroundColor: 'yellow' },
+          container: { backgroundColor: 'green' },
         };
       default:
         return {
@@ -33,12 +33,17 @@ const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
 
   const handleEditarGasto = () => {
     const gastoEditado = {
+      id,
       nombre: editNombre,
       prioridad,
-      costo: parseFloat(editCosto)
+      costo: parseFloat(editCosto),
     };
-    onEditarGasto(gastoEditado);
+    onEditarGasto(id, gastoEditado);
     setModalVisible(false);
+  };
+
+  const handleEliminarGasto = () => {
+    onEliminarGasto(id);
   };
 
   return (
@@ -49,7 +54,7 @@ const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Text style={styles.editButton}>Editar</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={onEliminarGasto}>
+      <TouchableOpacity onPress={handleEliminarGasto}>
         <Text style={styles.deleteButton}>Eliminar</Text>
       </TouchableOpacity>
       <Modal
@@ -72,6 +77,7 @@ const Gasto = ({ gasto, onEditarGasto, onEliminarGasto }) => {
             onChangeText={setEditCosto}
             keyboardType="numeric"
           />
+          
           <Button title="Guardar" onPress={handleEditarGasto} />
           <Button title="Cancelar" onPress={() => setModalVisible(false)} />
         </View>
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
   deleteButton: {
     color: 'black',
     textDecorationLine: 'underline',
-    marginTop: 10,
+    marginTop: 5,
   },
   modalContainer: {
     flex: 1,
