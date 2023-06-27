@@ -1,5 +1,5 @@
 //const baseURL = "http://localhost:8080"
-const baseURL = "https://e06c-186-139-158-165.sa.ngrok.io";
+const baseURL = "https://50f3-186-139-158-165.sa.ngrok.io";
 
 const planService = {
   async getPlan(userAuth) {
